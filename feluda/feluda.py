@@ -24,7 +24,7 @@ def des(sdf_in,v_allowed_category):
         columns.append(c)
         un_v = sdf_in_c.distinct().count()
         unique_values.append(un_v)
-        fraction_nulls.append(sdf_in_c.filter(sf.col(c).isNull().count()/n_rows))
+        fraction_nulls.append(sdf_in_c.filter(sf.col(c).isNull()).count()/n_rows)
         if un_v <= v_allowed_category:
             list_num_uv = sdf_in_c.groupBy(c).count().select('count')\
                                 .rdd.flatMap(lambda x:x).colect()
