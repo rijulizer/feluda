@@ -1,5 +1,7 @@
 import pandas as pd
 import numpy as np
+import pyspark.sql.functions as sf
+
 
 def des(sdf_in,v_allowed_category):
     """
@@ -34,8 +36,8 @@ def des(sdf_in,v_allowed_category):
     df = pd.DataFrame(list(zip(columns,fraction_nulls, unique_values, unique_value_fracs)),
                     columns=['columns','fraction_nulls', 'unique_values', 'unique_value_fracs'])
 
-    sdf = spark.createDataFrame(df)
+    #sdf = spark.createDataFrame(df)
     sdf_in.unpersist()
 
-    return (sdf)
+    return (df)
 
