@@ -27,8 +27,9 @@ def des(sdf_in, v_allowed_category: int):
         fraction_nulls.append(sdf_in_c.filter(sf.col(c).isNull()).count()/ n_rows)
         # Count number of rows for each category and their fractions
         if un_v <= v_allowed_category:
+            print(f'{c} falls under categorical columns')
             list_num_uv = sdf_in_c.groupBy(c).count().select('count')\
-                                .rdd.flatMap(lambda x:x).colect()
+                                .rdd.flatMap(lambda x:x).collect()
             list_num_uv = list(np.round(np.array(list_num_uv)/sum(list_num_uv),3))
             unique_value_fracs.append(list_num_uv)
         else:
